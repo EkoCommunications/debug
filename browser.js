@@ -38,6 +38,16 @@ exports.colors = [
  */
 
 function useColors() {
+  // disable for electron
+  if (typeof window !== 'undefined' && window.process && window.process.type === 'renderer') {
+    return false;
+  }
+
+  // disable for phantomjs
+  if (navigator.appVersion.toLowerCase().match(/.*phantomjs.*/)) {
+    return false;
+  }
+
   // is webkit? http://stackoverflow.com/a/16459606/376773
   return ('WebkitAppearance' in document.documentElement.style) ||
     // is firebug? http://stackoverflow.com/a/398120/376773
